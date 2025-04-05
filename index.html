@@ -57,7 +57,7 @@
     <br>
     <button onclick="correggiTesto()">GPT: ctrl + i</button>
     <button onclick="convertiVoce()">PARLA: ctrl + 0</button>
-    <button onclick="toggleFullScreen()">🔲 Schermo Intero: ctrl + ,</button>
+    <button onclick="toggleFullScreen()">🔲 Schermo Intero: F11</button>
     <button onclick="toggleSettings()">⚙️ Settings</button>  
     <button onclick="apriIstruzioni()">📖 Leggi le Istruzioni</button>
 
@@ -74,18 +74,19 @@
     <audio id="audioPlayer" controls></audio>
 
     <div id="settings">
-        <h3>Impostazioni API</h3>
+        <h3>Impostazioni ElevenLabs</h3>
         <label>ElevenLabs API Key: </label><input type="password" id="apiKey"><br>
         <label>ID Voce: </label><input type="text" id="voiceId"><br>
         <label>Modello TTS: </label><input type="text" id="modelTTS" value="eleven_flash_v2_5"><br>
         <label>Stability: </label><input type="number" id="stability" step="0.1" min="0" max="1" value="0.5"><br>
         <label>Similarity Boost: </label><input type="number" id="similarity" step="0.1" min="0" max="1"
             value="0.9"><br>
+        <label>Speed: </label><input type="number" id="speed" step="0.1" min="0.7" max="1.2" value="1.0"><br>
         <h3>Impostazioni GPT</h3>
         <label>GPT API Key: </label><input type="password" id="gptApiKey"><br>
         <label>Modello GPT: </label><input type="text" id="gptModel" value="gpt-3.5-turbo"><br>
         <label>Prompt GPT: </label><textarea
-            id="gptPrompt">Correggi errori di battitura, punteggiatura e grammatica nel testo. Non modificare il significato della frase. Correggi solo la frase. Non interagire con l'utente.</textarea><br>
+            id="gptPrompt">Sei un correttore automatico. Correggi errori di battitura, punteggiatura e grammatica nel testo. Non modificare il significato della frase. Non rispondere all'utente o generare frasi. Correggi solo la frase non interagire con altre parole.</textarea><br>
         <button onclick="salvaSettings()">Salva Impostazioni</button>
     </div>
 
@@ -134,6 +135,7 @@
                 modelTTS: document.getElementById("modelTTS").value,
                 stability: document.getElementById("stability").value,
                 similarity: document.getElementById("similarity").value,
+                speed: document.getElementById("speed").value,
                 gptApiKey: document.getElementById("gptApiKey").value,
                 gptModel: document.getElementById("gptModel").value,
                 gptPrompt: document.getElementById("gptPrompt").value
@@ -150,6 +152,7 @@
                 document.getElementById("modelTTS").value = settings.modelTTS || "eleven_flash_v2_5";
                 document.getElementById("stability").value = settings.stability || "0.5";
                 document.getElementById("similarity").value = settings.similarity || "0.9";
+                document.getElementById("speed").value = settings.speed || "1.0";
                 document.getElementById("gptApiKey").value = settings.gptApiKey || "";
                 document.getElementById("gptModel").value = settings.gptModel || "gpt-3.5-turbo";
                 document.getElementById("gptPrompt").value = settings.gptPrompt || "Correggi errori di battitura, punteggiatura e grammatica nel testo. Non modificare il significato della frase. Correggi solo la frase non interagire con altre parole.";
@@ -205,7 +208,18 @@
                 const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${settings.voiceId}`, {
                     method: "POST",
                     headers: { "xi-api-key": settings.apiKey, "Content-Type": "application/json" },
-                    body: JSON.stringify({ text: text, model_id: settings.modelTTS })
+                    body: JSON.stringify({
+                    text: text,
+                    model_id: settings.modelTTS,
+                    voice_settings: {
+                        stability: parseFloat(settings.stability),
+                        similarity_boost: parseFloat(settings.similarity),
+                        style: 0.0,
+                        use_speaker_boost: true,
+                        speed: parseFloat(settings.speed)
+                    }
+                })
+
                 });
 
                 if (!response.ok) throw new Error("Errore nella generazione audio");
@@ -243,6 +257,22 @@
             }
             
             });
+            document.addEventListener("DOMContentLoaded", () => {
+    caricaSettings(); // già presente, lo lasciamo
+    
+    // Focus automatico sul campo di testo
+    document.getElementById("textInput").focus();
+
+    // Tentativo di andare in fullscreen
+    setTimeout(() => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.warn("Errore fullscreen:", err.message);
+            });
+        }
+    }, 200); // leggero ritardo per evitare problemi su alcuni browser
+});
+
    
     </script>
 </body>
