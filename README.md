@@ -48,25 +48,25 @@ Le impostazioni vengono salvate nel browser (localStorage), non devi reinserirle
 Scrivi o incolla un testo nel campo principale
 
 🧠 Per correggerlo:
-Clicca su "GPT: ctrl + i"
+Clicca su "GPT: ctrl + 0"
 
-Oppure premi Ctrl + I sulla tastiera (eventualmente da emulare con attività cella di Grid3)
+Oppure premi Ctrl + 0 sulla tastiera (eventualmente da emulare con sensore o attività cella di Grid3)
 
 Il testo verrà elaborato da GPT rispetto al prompt assegnato. Con il prompt di default vengono corretti ortografia, punteggiatura, grammatica, spazi, refusi. 
 
 🔊 5. Generare la voce
 Dopo aver scritto (o corretto) il testo:
 🔈 Per ascoltarlo:
-Clicca su "PARLA: ctrl + 0"
+Clicca su "PARLA: Invio"
 
-Oppure premi Ctrl + 0 (eventualmente da emulare con attività cella di Grid3)
+Oppure premi tasto Invio (eventualmente da emulare sensore o con attività cella di Grid3)
 
 Verrà generato un audio con la voce di ElevenLabs e riprodotto automaticamente.
 
 🧹 6. Comandi rapidi da tastiera
 Comando	Funzione
-Ctrl + 0 -	Genera voce
-Ctrl + I -	Correggi testo
+INVIO -	Genera voce
+Ctrl + 0 -	Correggi testo
 F11 -	Attiva/Disattiva schermo intero
 
 🧩 7. Integrazione con Grid3
@@ -74,7 +74,7 @@ In Grid3 puoi:
 
 Usare tastiera alfabetica che scrive testo nel campo della pagina.
 
-Collegare tasti che simulano i comandi da tastiera (es. Ctrl + 0 per parlare e Ctrl + i per attivare prompt GPT sul testo).
+Collegare tasti che simulano i comandi da tastiera (es. Invio per parlare e Ctrl + 0 per attivare prompt GPT sul testo).
 
 Usare la pagina a schermo intero.
 
