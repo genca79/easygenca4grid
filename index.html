@@ -55,8 +55,8 @@
     <textarea id="textInput" placeholder="Scrivi qui..." oninput="autoResize(this)"
         onkeypress="checkEnter(event)"></textarea>
     <br>
-    <button onclick="correggiTesto()">GPT: ctrl + i</button>
-    <button onclick="convertiVoce()">PARLA: ctrl + 0</button>
+    <button onclick="correggiTesto()">GPT: ctrl + 0 </button>
+    <button onclick="convertiVoce()">PARLA: Invio </button>
     <button onclick="toggleFullScreen()">🔲 Schermo Intero: F11</button>
     <button onclick="toggleSettings()">⚙️ Settings</button>  
     <button onclick="apriIstruzioni()">📖 Leggi le Istruzioni</button>
@@ -238,23 +238,13 @@
         document.addEventListener("DOMContentLoaded", caricaSettings);
     
         document.addEventListener('keydown', function (event) {
-            if (event.ctrlKey && event.key.toLowerCase() === '0') {
-                event.preventDefault();
-                convertiVoce();
-            }
-            if (event.ctrlKey && event.key.toLowerCase() === 'i') {
+                if (event.ctrlKey && event.key.toLowerCase() === '0') {
                 event.preventDefault();
                 correggiTesto();
             }
-            if (event.ctrlKey && event.key.toLowerCase() === 'm') {
-                event.preventDefault();
-                cancellaTesto();
-            
-            }
-            if (event.ctrlKey && event.key.toLowerCase() === ',') {
-                event.preventDefault();
-                toggleFullScreen();
-            }
+                      
+          
+          
             
             });
             document.addEventListener("DOMContentLoaded", () => {
